@@ -3,6 +3,7 @@ package algo_test
 import (
 	"github.com/bablzz/algowithgo/pkg/algo"
 	fuzz "github.com/google/gofuzz"
+	"reflect"
 	"testing"
 )
 
@@ -85,23 +86,23 @@ func Test_Sum(t *testing.T) {
 		wantSum int
 	}{
 		{
-			name: "Positive sum",
-			args:args{list:[]int{1,2,3,4,5}},
+			name:    "Positive sum",
+			args:    args{list: []int{1, 2, 3, 4, 5}},
 			wantSum: 15,
 		},
 		{
-			name: "Negative sum",
-			args:args{list:[]int{-1,-2,-3,-4,-5}},
+			name:    "Negative sum",
+			args:    args{list: []int{-1, -2, -3, -4, -5}},
 			wantSum: -15,
 		},
 		{
-			name: "Zero sum",
-			args:args{list:[]int{0, 0, 0, 0}},
+			name:    "Zero sum",
+			args:    args{list: []int{0, 0, 0, 0}},
 			wantSum: 0,
 		},
 		{
-			name: "Empty sum",
-			args:args{list:[]int{}},
+			name:    "Empty sum",
+			args:    args{list: []int{}},
 			wantSum: 0,
 		},
 	}
@@ -121,6 +122,39 @@ func Test_Sum(t *testing.T) {
 	}
 }
 
+func TestQuicksort(t *testing.T) {
+	type args struct {
+		arr []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "Positive",
+			args: args{arr: []int{5, 4, 3, 2, 1}},
+			want: []int{1, 2, 3, 4, 5},
+		},
+		{
+			name: "Two elements",
+			args: args{arr: []int{5, 4}},
+			want: []int{4, 5},
+		},
+		{
+			name: "One elements",
+			args: args{arr: []int{-10}},
+			want: []int{-10},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.Quicksort(tt.args.arr); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Quicksort() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
 
 func benchmarkSumList(l int, b *testing.B) {
 	f := fuzz.New()
@@ -148,12 +182,30 @@ func benchmarkReverseSumList(l int, b *testing.B) {
 	}
 }
 
-func BenchmarkSumList1_10(b *testing.B)  { benchmarkSumList(10, b) }
-func BenchmarkSumList2_20(b *testing.B)  { benchmarkSumList(20, b) }
-func BenchmarkSumList3_100(b *testing.B)  { benchmarkSumList(20, b) }
-func BenchmarkSumList4_1500(b *testing.B)  { benchmarkSumList(20, b) }
+func benchmarkQuicksort(l int, b *testing.B) {
+	f := fuzz.New()
+	var myInt []int
+	var j int
+	for i := 0; i < l; i++ {
+		f.Fuzz(&j)
+		myInt = append(myInt, j)
+	}
+	for n := 0; n < b.N; n++ {
+		algo.Quicksort(myInt)
+	}
+}
 
-func BenchmarkReverseSumList1_10(b *testing.B)  { benchmarkReverseSumList(10, b) }
-func BenchmarkReverseSumList1_20(b *testing.B)  { benchmarkReverseSumList(20, b) }
-func BenchmarkReverseSumList1_100(b *testing.B)  { benchmarkReverseSumList(20, b) }
-func BenchmarkReverseSumList1_1500(b *testing.B)  { benchmarkReverseSumList(20, b) }
+func BenchmarkSumList1_10(b *testing.B)   { benchmarkSumList(10, b) }
+func BenchmarkSumList2_20(b *testing.B)   { benchmarkSumList(20, b) }
+func BenchmarkSumList3_100(b *testing.B)  { benchmarkSumList(100, b) }
+func BenchmarkSumList4_1500(b *testing.B) { benchmarkSumList(1500, b) }
+
+func BenchmarkReverseSumList1_10(b *testing.B)   { benchmarkReverseSumList(10, b) }
+func BenchmarkReverseSumList1_20(b *testing.B)   { benchmarkReverseSumList(20, b) }
+func BenchmarkReverseSumList1_100(b *testing.B)  { benchmarkReverseSumList(100, b) }
+func BenchmarkReverseSumList1_1500(b *testing.B) { benchmarkReverseSumList(1500, b) }
+
+func BenchmarkQuicksort1_10(b *testing.B)   { benchmarkQuicksort(10, b) }
+func BenchmarkQuicksort1_20(b *testing.B)   { benchmarkQuicksort(20, b) }
+func BenchmarkQuicksort1_100(b *testing.B)  { benchmarkQuicksort(100, b) }
+func BenchmarkQuicksort1_1500(b *testing.B) { benchmarkQuicksort(1500, b) }
