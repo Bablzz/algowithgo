@@ -190,6 +190,66 @@ func TestMergeSort(t *testing.T) {
 	}
 }
 
+func TestBinarySearch(t *testing.T) {
+	type args struct {
+		arr  []int
+		elem int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "Find element in left",
+			args: args{
+				arr:  []int{1, 2, 3, 4, 5},
+				elem: 4,
+			},
+			want: 3,
+		},
+		{
+			name: "Find element in right",
+			args: args{
+				arr:  []int{1, 2, 3, 4, 5},
+				elem: 2,
+			},
+			want: 1,
+		},
+		{
+			name: "Right boundary",
+			args: args{
+				arr:  []int{1, 2, 3, 4, 5},
+				elem: 1,
+			},
+			want: 0,
+		},
+		{
+			name: "Left boundary",
+			args: args{
+				arr:  []int{1, 2, 3, 4, 5},
+				elem: 5,
+			},
+			want: 4,
+		},
+		{
+			name: "Not found",
+			args: args{
+				arr:  []int{1, 2, 3, 4, 5},
+				elem: 8,
+			},
+			want: -1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.Bs(tt.args.arr, tt.args.elem); got != tt.want {
+				t.Errorf("Bs() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func benchmarkSumList(l int, b *testing.B) {
 	f := fuzz.New()
 	var myInt []int
