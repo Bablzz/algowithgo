@@ -156,6 +156,40 @@ func TestQuicksort(t *testing.T) {
 	}
 }
 
+func TestMergeSort(t *testing.T) {
+	type args struct {
+		arr []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "Positive",
+			args: args{arr: []int{5, 4, 3, 2, 1}},
+			want: []int{1, 2, 3, 4, 5},
+		},
+		{
+			name: "Two elements",
+			args: args{arr: []int{5, 4}},
+			want: []int{4, 5},
+		},
+		{
+			name: "One elements",
+			args: args{arr: []int{-10}},
+			want: []int{-10},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.MergeSort(tt.args.arr); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Quicksort() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func benchmarkSumList(l int, b *testing.B) {
 	f := fuzz.New()
 	var myInt []int
@@ -195,6 +229,19 @@ func benchmarkQuicksort(l int, b *testing.B) {
 	}
 }
 
+func benchmarkMergeSort(l int, b *testing.B) {
+	f := fuzz.New()
+	var myInt []int
+	var j int
+	for i := 0; i < l; i++ {
+		f.Fuzz(&j)
+		myInt = append(myInt, j)
+	}
+	for n := 0; n < b.N; n++ {
+		algo.MergeSort(myInt)
+	}
+}
+
 func BenchmarkSumList1_10(b *testing.B)   { benchmarkSumList(10, b) }
 func BenchmarkSumList2_20(b *testing.B)   { benchmarkSumList(20, b) }
 func BenchmarkSumList3_100(b *testing.B)  { benchmarkSumList(100, b) }
@@ -209,3 +256,8 @@ func BenchmarkQuicksort1_10(b *testing.B)   { benchmarkQuicksort(10, b) }
 func BenchmarkQuicksort1_20(b *testing.B)   { benchmarkQuicksort(20, b) }
 func BenchmarkQuicksort1_100(b *testing.B)  { benchmarkQuicksort(100, b) }
 func BenchmarkQuicksort1_1500(b *testing.B) { benchmarkQuicksort(1500, b) }
+
+func BenchmarkMergeSort1_10(b *testing.B)   { benchmarkMergeSort(10, b) }
+func BenchmarkMergeSort1_20(b *testing.B)   { benchmarkMergeSort(20, b) }
+func BenchmarkMergeSort1_100(b *testing.B)  { benchmarkMergeSort(100, b) }
+func BenchmarkMergeSort1_1500(b *testing.B) { benchmarkMergeSort(1500, b) }
