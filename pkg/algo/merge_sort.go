@@ -1,7 +1,6 @@
 package algo
 
-func sort(leftArr, rightArr []int) []int {
-	resultArr := make([]int, 0, len(leftArr)+len(rightArr))
+func sort(leftArr, rightArr, resultArr []int) []int {
 	for len(leftArr) > 0 || len(rightArr) > 0 {
 		if len(leftArr) == 0 {
 			return append(resultArr, rightArr...)
@@ -27,5 +26,6 @@ func MergeSort(a []int) []int {
 	mid := len(a) / 2
 	left := MergeSort(a[:mid])
 	right := MergeSort(a[mid:])
-	return sort(left, right)
+	resultArr := make([]int, 0, len(a))
+	return sort(left, right, resultArr)
 }

@@ -1,15 +1,11 @@
 package algo
 
-import (
-	"math/rand"
-	"time"
-)
+import "math/rand"
 
 func Quicksort(arr []int) []int {
 	if len(arr) < 2 {
 		return arr
 	} else {
-		rand.Seed(time.Now().UnixNano())
 		fresh := make([]int, 0, len(arr))
 		pivot := arr[rand.Intn(len(arr))]
 
