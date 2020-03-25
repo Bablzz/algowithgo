@@ -250,6 +250,32 @@ func TestBinarySearch(t *testing.T) {
 	}
 }
 
+func TestBinTree(t *testing.T) {
+	node := &algo.Node{
+		Value: 3,
+	}
+	node.Insert(6)
+	node.Insert(4)
+	node.Insert(2)
+	node.Insert(1)
+	if node.Right.Value == 6 {
+		t.Log("Added greater is working")
+	} else {
+		t.Error("Added is not working")
+	}
+	if node.Right.Left.Value == 4 {
+		t.Log("Added greater is working")
+	} else {
+		t.Error("Added is not working")
+	}
+	if node.Left.Value == 2 {
+		t.Log("Added less is working")
+	} else {
+		t.Error("Added is not working")
+	}
+
+}
+
 func benchmarkSumList(l int, b *testing.B) {
 	f := fuzz.New()
 	var myInt []int
