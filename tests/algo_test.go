@@ -250,6 +250,26 @@ func TestBinarySearch(t *testing.T) {
 	}
 }
 
+func TestReverseNotation(t *testing.T) {
+	type args struct {
+		polish string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{name: "True", args: args{"2 + 2 * 3"}, want: "2 2 3 + *"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.ReverseNotation(tt.args.polish); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("reverse_notation() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func benchmarkSumList(l int, b *testing.B) {
 	f := fuzz.New()
 	var myInt []int
