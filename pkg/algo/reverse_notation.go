@@ -1,6 +1,7 @@
 package algo
 
 import (
+	"fmt"
 	"unicode"
 )
 
@@ -12,24 +13,24 @@ func isDigit(c rune) bool {
 	return false
 }
 
-func isLetter(c rune) (bool, string, int8) {
+func isLetter(c rune) bool {
 	switch c {
 	case '*':
-		return true, "mult", 3
+		return true
 	case '/':
-		return true, "div", 3
+		return true
 	case '-':
-		return true, "minus", 2
+		return true
 	case '+':
-		return true, "plus", 2
+		return true
 	case '(':
-		return true, "open", 1
+		return true
 	case ')':
-		return true, "close", 0
-	case ' ':
-		return true, "close", -3
+		return true
+	//case ' ':
+	//	return true
 	default:
-		return false, "", -1
+		return false
 	}
 }
 
@@ -52,16 +53,31 @@ func ReverseNotation(polish string) string {
 	var stack []rune
 	var outputStr []rune
 
-	for _, val := range polish {
-		isLet, _, code := isLetter(val)
-		if (isDigit(val)) || (code == -3) {
-			outputStr = append(outputStr, val)
+	for _, value := range polish {
+		if isDigit(value) {
+			outputStr = append(outputStr, value)
+			outputStr = append(outputStr, ' ')
 		}
-		if (isLet) || (code == -3) {
-			stack = append(stack, val)
-		}
-	}
-	outputStr = append(outputStr, stack...)
 
+		curPrior := prioritet(value)
+		if len(stack) == 0 && isLetter(value) {
+			stack = append(stack, value)
+		}
+		less := false
+		for _, stcVal := range stack {
+			stcPrior := prioritet(stcVal)
+			if curPrior > stcPrior {
+				less = true
+			}
+		}
+		if less {
+			stack = append(stack, ' ')
+			stack = append(stack, value)
+		}
+		fmt.Print(len(stack))
+
+	}
+
+	outputStr = append(outputStr, stack...)
 	return string(outputStr)
 }
