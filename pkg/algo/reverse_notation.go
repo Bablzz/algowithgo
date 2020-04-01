@@ -53,7 +53,6 @@ func reverseStack(s []rune) []rune {
 		return s
 	}
 	for i := len(s) - 1; i >= 0; i-- {
-		fmt.Print(s[i])
 		result = append(result, s[i])
 	}
 	return result
@@ -94,6 +93,7 @@ func isCloseBrackets(c rune) bool {
 func ReverseNotation(polish string) string {
 	var stack []rune
 	var outputStr []rune
+	var curPrior int8
 
 	for _, value := range polish {
 		if isDigit(value) {
@@ -101,25 +101,47 @@ func ReverseNotation(polish string) string {
 			outputStr = append(outputStr, ' ')
 		}
 
-		curPrior := prioritet(value)
-		if len(stack) == 0 && isLetter(value) {
+		if isLetter(value) {
+			curPrior = prioritet(value)
+		}
+
+		if checkStack(stack) && isLetter(value) {
 			stack = append(stack, value)
 		}
+
 		less := false
-		for _, stcVal := range stack {
-			stcPrior := prioritet(stcVal)
-			if curPrior > stcPrior {
-				less = true
-			} else {
-				less = false
-				break
+		if !isDigit(value) {
+			for _, stcVal := range stack {
+				stcPrior := prioritet(stcVal)
+				if (curPrior > stcPrior) && !isSpace(stcVal) {
+					less = true
+				} else {
+					less = false
+					break
+				}
 			}
 		}
 		if less {
 			stack = append(stack, ' ')
 			stack = append(stack, value)
 		}
-		fmt.Print(len(stack))
+
+		if (len(stack) > 0) && !isDigit(value) {
+			fmt.Print(string(stack))
+			stack := reverseStack(stack)
+			for i, v := range stack {
+				if curPrior < prioritet(v) {
+					if !isSpace(value) {
+						outputStr = append(outputStr, v)
+						stack = append(stack[:i], stack[i+1:]...)
+						fmt.Print(string(v))
+						stack = append(stack, value)
+					}
+				} else {
+					break
+				}
+			}
+		}
 	}
 
 	outputStr = append(outputStr, reverseStack(stack)...)
