@@ -27,8 +27,6 @@ func isLetter(c rune) bool {
 		return true
 	case ')':
 		return true
-	//case ' ':
-	//	return true
 	default:
 		return false
 	}
@@ -46,6 +44,50 @@ func prioritet(c rune) int8 {
 		return 0
 	default:
 		return -1
+	}
+}
+
+func reverseStack(s []rune) []rune {
+	var result []rune
+	if len(s) == 1 {
+		return s
+	}
+	for i := len(s) - 1; i >= 0; i-- {
+		fmt.Print(s[i])
+		result = append(result, s[i])
+	}
+	return result
+}
+
+func isSpace(c rune) bool {
+	if c == ' ' {
+		return true
+	}
+	return false
+}
+
+func checkStack(stack []rune) bool {
+	if len(stack) == 0 {
+		return true
+	}
+	return false
+}
+
+func isOpenBrackets(c rune) bool {
+	switch c {
+	case '(':
+		return true
+	default:
+		return false
+	}
+}
+
+func isCloseBrackets(c rune) bool {
+	switch c {
+	case ')':
+		return true
+	default:
+		return false
 	}
 }
 
@@ -68,6 +110,9 @@ func ReverseNotation(polish string) string {
 			stcPrior := prioritet(stcVal)
 			if curPrior > stcPrior {
 				less = true
+			} else {
+				less = false
+				break
 			}
 		}
 		if less {
@@ -75,9 +120,8 @@ func ReverseNotation(polish string) string {
 			stack = append(stack, value)
 		}
 		fmt.Print(len(stack))
-
 	}
 
-	outputStr = append(outputStr, stack...)
+	outputStr = append(outputStr, reverseStack(stack)...)
 	return string(outputStr)
 }
