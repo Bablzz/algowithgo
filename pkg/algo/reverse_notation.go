@@ -133,8 +133,8 @@ func ReverseNotation(polish string) string {
 				if curPrior < prioritet(v) {
 					if !isSpace(value) {
 						outputStr = append(outputStr, v)
+						outputStr = append(outputStr, ' ')
 						stack = append(stack[:i], stack[i+1:]...)
-						fmt.Print(string(v))
 						stack = append(stack, value)
 					}
 				} else {
