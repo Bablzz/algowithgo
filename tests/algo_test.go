@@ -260,27 +260,32 @@ func TestReverseNotation(t *testing.T) {
 		want string
 	}{
 		{
-			name: "True",
-			args: args{"2 + 2 * 3"},
-			want: "2 2 3 * +",
-		},
-		{
 			name: "Simple",
 			args: args{"2 + 2"},
 			want: "2 2 +",
 		},
 		{
-			name: "Prev high",
-			args: args{"2 * 2 + 3"},
-			want: "2 2 * 3 +",
+			name: "High proiritet first",
+			args: args{"2 * 2 - 4"},
+			want: "2 2 * 4 -",
+		},
+		{
+			name: "High proiritet last",
+			args: args{"2 + 2 * 3"},
+			want: "2 2 3 * +",
+		},
+		{
+			name: "Double equivalent",
+			args: args{"2 + 2 - 2"},
+			want: "2 2 + 2 -",
+		},
+		{
+			name: "Without brackets",
+			args: args{"2 * 2 - 3 + 2"},
+			want: "2 2 * 3 - 2 +",
 		},
 		//{
-		//	name: "High proiritet",
-		//	args: args{"2 * 2 - 4"},
-		//	want: "2 2 * 4 -",
-		//},
-		//{
-		//	name: "Complicated",
+		//	name: "Complicated with brackets",
 		//	args: args{"1 + ( 2 - 3 ) * 4"},
 		//	want: "1 2 3 - 4 * +",
 		//},

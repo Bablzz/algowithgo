@@ -1,7 +1,6 @@
 package algo
 
 import (
-	"fmt"
 	"unicode"
 )
 
@@ -23,10 +22,6 @@ func isLetter(c rune) bool {
 		return true
 	case '+':
 		return true
-	case '(':
-		return true
-	case ')':
-		return true
 	default:
 		return false
 	}
@@ -38,12 +33,8 @@ func prioritet(c rune) int8 {
 		return 3
 	case '-', '+':
 		return 2
-	case '(':
-		return 1
-	case ')':
-		return 0
 	default:
-		return -1
+		return 0
 	}
 }
 
@@ -107,38 +98,46 @@ func ReverseNotation(polish string) string {
 
 		if checkStack(stack) && isLetter(value) {
 			stack = append(stack, value)
+			continue
 		}
 
-		less := false
-		if !isDigit(value) {
-			for _, stcVal := range stack {
-				stcPrior := prioritet(stcVal)
-				if (curPrior > stcPrior) && !isSpace(stcVal) {
+		if len(stack) != 0 {
+			less := false
+			for _, v := range stack {
+				topStPrior := prior(v)
+
+				if topStPrior < curPrior {
 					less = true
 				} else {
 					less = false
 					break
 				}
 			}
-		}
-		if less {
-			stack = append(stack, ' ')
-			stack = append(stack, value)
+			if less {
+				stack = append(stack, ' ')
+				stack = append(stack, value)
+				continue
+			}
 		}
 
-		if (len(stack) > 0) && !isDigit(value) {
-			fmt.Print(string(stack))
-			stack := reverseStack(stack)
-			for i, v := range stack {
-				if curPrior < prioritet(v) {
-					if !isSpace(value) {
+		if !isDigit(value) && !isSpace(value) {
+			if len(stack) > 0 {
+				stack := revStack(stack)
+				for i, v := range stack {
+					topStPrior := prior(v)
+					if topStPrior >= curPrior {
 						outputStr = append(outputStr, v)
 						outputStr = append(outputStr, ' ')
 						stack = append(stack[:i], stack[i+1:]...)
-						stack = append(stack, value)
+					} else {
+						stack = append(stack, v)
+						stack = append(stack, ' ')
+						stack = revStack(stack)
+						break
 					}
-				} else {
-					break
+				}
+				if len(stack) == 0 {
+					stack = append(stack, value)
 				}
 			}
 		}
