@@ -81,6 +81,15 @@ func isCloseBrackets(c rune) bool {
 	}
 }
 
+func hasOpenBrackets(c []rune) (int, bool) {
+	for i, v := range c {
+		if isOpenBrackets(v) {
+			return i, true
+		}
+	}
+	return -1, false
+}
+
 func ReverseNotation(polish string) string {
 	var stack []rune
 	var outputStr []rune
@@ -101,19 +110,28 @@ func ReverseNotation(polish string) string {
 			continue
 		}
 
-		if len(stack) != 0 {
-			less := false
-			for _, v := range stack {
-				topStPrior := prior(v)
+		if isOpenBrackets(value) {
+			stack = append(stack, value)
+			continue
+		}
 
-				if topStPrior < curPrior {
-					less = true
-				} else {
-					less = false
-					break
-				}
+		if isCloseBrackets(value) {
+			stack = reverseStack(stack)
+			idxOpenBrackets, hasBrackets := hasOpenBrackets(stack)
+			if hasBrackets {
+				outputStr = append(outputStr, stack[:idxOpenBrackets-1]...)
+				stack = append(stack[:0], stack[idxOpenBrackets+1:]...)
 			}
-			if less {
+			stack = reverseStack(stack)
+			continue
+		}
+
+		if len(stack) != 0 {
+			if isOpenBrackets(stack[len(stack)-1]) {
+				stack = append(stack, value)
+				continue
+			}
+			if isLetter(value) && (curPrior > prioritet(stack[len(stack)-1])) {
 				stack = append(stack, ' ')
 				stack = append(stack, value)
 				continue

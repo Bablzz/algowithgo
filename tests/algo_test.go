@@ -284,11 +284,16 @@ func TestReverseNotation(t *testing.T) {
 			args: args{"2 * 2 - 3 + 2"},
 			want: "2 2 * 3 - 2 +",
 		},
-		//{
-		//	name: "Complicated with brackets",
-		//	args: args{"1 + ( 2 - 3 ) * 4"},
-		//	want: "1 2 3 - 4 * +",
-		//},
+		{
+			name: "Simple with brackets",
+			args: args{"1 * ( 2 - 3 )"},
+			want: "1 2 3 - *",
+		},
+		{
+			name: "Complicated with brackets",
+			args: args{"1 + ( 2 - 3 ) * 4"},
+			want: "1 2 3 - 4 * +",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
