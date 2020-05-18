@@ -2,11 +2,11 @@ package algo_test
 
 import (
 	"encoding/json"
-	"fmt"
-	"github.com/bablzz/algowithgo/pkg/algo"
-	fuzz "github.com/google/gofuzz"
 	"reflect"
 	"testing"
+
+	"github.com/bablzz/algowithgo/pkg/algo"
+	fuzz "github.com/google/gofuzz"
 )
 
 func Test_NumInList(t *testing.T) {
@@ -254,11 +254,11 @@ func TestBinarySearch(t *testing.T) {
 
 func TestBinTree(t *testing.T) {
 	var treeNode *algo.Node
-	fmt.Println("Tree is empty")
+	t.Log("Tree is empty")
 	var avlTree []byte
 	avlTree, _ = json.MarshalIndent(treeNode, "", " ")
-	fmt.Println(string(avlTree))
-	fmt.Println("\n Add Tree")
+	t.Log(string(avlTree))
+	t.Log("\n Add Tree")
 	algo.InsertNode(&treeNode, algo.IntegerKey(5))
 	algo.InsertNode(&treeNode, algo.IntegerKey(3))
 	algo.InsertNode(&treeNode, algo.IntegerKey(8))
@@ -266,12 +266,12 @@ func TestBinTree(t *testing.T) {
 	algo.InsertNode(&treeNode, algo.IntegerKey(6))
 	algo.InsertNode(&treeNode, algo.IntegerKey(10))
 	avlTree, _ = json.MarshalIndent(treeNode, "", " ")
-	fmt.Println(string(avlTree))
-	fmt.Println("\n Delete Tree")
+	t.Log(string(avlTree))
+	t.Log("\n Delete Tree")
 	algo.RemoveNode(&treeNode, algo.IntegerKey(3))
 	algo.RemoveNode(&treeNode, algo.IntegerKey(7))
 	avlTree, _ = json.MarshalIndent(treeNode, "", " ")
-	fmt.Println(string(avlTree))
+	t.Log(string(avlTree))
 }
 
 func benchmarkSumList(l int, b *testing.B) {
