@@ -1,6 +1,8 @@
 package algo_test
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/bablzz/algowithgo/pkg/algo"
 	fuzz "github.com/google/gofuzz"
 	"reflect"
@@ -251,29 +253,25 @@ func TestBinarySearch(t *testing.T) {
 }
 
 func TestBinTree(t *testing.T) {
-	node := &algo.Node{
-		Value: 3,
-	}
-	node.Insert(6)
-	node.Insert(4)
-	node.Insert(2)
-	node.Insert(1)
-	if node.Right.Value == 6 {
-		t.Log("Added greater is working")
-	} else {
-		t.Error("Added is not working")
-	}
-	if node.Right.Left.Value == 4 {
-		t.Log("Added greater is working")
-	} else {
-		t.Error("Added is not working")
-	}
-	if node.Left.Value == 2 {
-		t.Log("Added less is working")
-	} else {
-		t.Error("Added is not working")
-	}
-
+	var treeNode *algo.Node
+	fmt.Println("Tree is empty")
+	var avlTree []byte
+	avlTree, _ = json.MarshalIndent(treeNode, "", " ")
+	fmt.Println(string(avlTree))
+	fmt.Println("\n Add Tree")
+	algo.InsertNode(&treeNode, algo.IntegerKey(5))
+	algo.InsertNode(&treeNode, algo.IntegerKey(3))
+	algo.InsertNode(&treeNode, algo.IntegerKey(8))
+	algo.InsertNode(&treeNode, algo.IntegerKey(7))
+	algo.InsertNode(&treeNode, algo.IntegerKey(6))
+	algo.InsertNode(&treeNode, algo.IntegerKey(10))
+	avlTree, _ = json.MarshalIndent(treeNode, "", " ")
+	fmt.Println(string(avlTree))
+	fmt.Println("\n Delete Tree")
+	algo.RemoveNode(&treeNode, algo.IntegerKey(3))
+	algo.RemoveNode(&treeNode, algo.IntegerKey(7))
+	avlTree, _ = json.MarshalIndent(treeNode, "", " ")
+	fmt.Println(string(avlTree))
 }
 
 func benchmarkSumList(l int, b *testing.B) {
