@@ -156,6 +156,46 @@ func TestQuicksort(t *testing.T) {
 	}
 }
 
+func TestQuicksort2(t *testing.T) {
+	type args struct {
+		arr     []int
+		less    int
+		greater int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "Positive",
+			args: args{arr: []int{5, 4, 3, 2, 1}},
+			want: []int{1, 2, 3, 4, 5},
+		},
+		{
+			name: "Two elements",
+			args: args{arr: []int{5, 4}},
+			want: []int{4, 5},
+		},
+		{
+			name: "One elements",
+			args: args{arr: []int{-10}},
+			want: []int{-10},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			algo.Quicksort2(tt.args.arr, 0, len(tt.args.arr)-1)
+			result := reflect.DeepEqual(tt.args.arr, tt.want)
+			if result {
+				t.Logf("PASS, %v", tt.args.arr)
+			} else {
+				t.Errorf("Quicksort2() = %v, want %v", tt.args.arr, tt.want)
+			}
+		})
+	}
+}
+
 func TestMergeSort(t *testing.T) {
 	type args struct {
 		arr []int
