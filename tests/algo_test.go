@@ -383,6 +383,19 @@ func benchmarkQuicksort(l int, b *testing.B) {
 	}
 }
 
+func benchmarkQuicksort2(l int, b *testing.B) {
+	f := fuzz.New()
+	var myInt []int
+	var j int
+	for i := 0; i < l; i++ {
+		f.Fuzz(&j)
+		myInt = append(myInt, j)
+	}
+	for n := 0; n < b.N; n++ {
+		algo.Quicksort2(myInt, 0, len(myInt)-1)
+	}
+}
+
 func benchmarkMergeSort(l int, b *testing.B) {
 	f := fuzz.New()
 	var myInt []int
@@ -410,6 +423,11 @@ func BenchmarkQuicksort1_10(b *testing.B)   { benchmarkQuicksort(10, b) }
 func BenchmarkQuicksort1_20(b *testing.B)   { benchmarkQuicksort(20, b) }
 func BenchmarkQuicksort1_100(b *testing.B)  { benchmarkQuicksort(100, b) }
 func BenchmarkQuicksort1_1500(b *testing.B) { benchmarkQuicksort(1500, b) }
+
+func BenchmarkQuicksort2_10(b *testing.B)   { benchmarkQuicksort(10, b) }
+func BenchmarkQuicksort2_20(b *testing.B)   { benchmarkQuicksort(20, b) }
+func BenchmarkQuicksort2_100(b *testing.B)  { benchmarkQuicksort(100, b) }
+func BenchmarkQuicksort2_1500(b *testing.B) { benchmarkQuicksort(1500, b) }
 
 func BenchmarkMergeSort1_10(b *testing.B)   { benchmarkMergeSort(10, b) }
 func BenchmarkMergeSort1_20(b *testing.B)   { benchmarkMergeSort(20, b) }
