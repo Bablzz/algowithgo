@@ -344,6 +344,23 @@ func TestReverseNotation(t *testing.T) {
 	}
 }
 
+func TestSets(t *testing.T) {
+	sets := algo.Set{}
+	sets.New()
+	sets.Add("test")
+	sets.Add("test")
+	_, ok := sets.Get("test")
+	if !ok {
+		t.Errorf("Can't find element")
+	}
+
+	sets.Delete("test")
+	_, ok = sets.Get("test")
+	if ok {
+		t.Errorf("Find exists after delete")
+	}
+}
+
 func benchmarkSumList(l int, b *testing.B) {
 	f := fuzz.New()
 	var myInt []int
