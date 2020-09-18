@@ -14,4 +14,7 @@ func main() {
 	linkedList.AddAfter(1, 7)
 	fmt.Println(linkedList.NodeWithValue(5).Proprety)
 	linkedList.IterateList()
+
+	fmt.Println("\nCheck tuples")
+	fmt.Println(algo.A(algo.B(12, 5)))
 }
