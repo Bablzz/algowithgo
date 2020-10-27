@@ -529,10 +529,10 @@ func BenchmarkQuicksort1_20(b *testing.B)   { benchmarkQuicksort(20, b) }
 func BenchmarkQuicksort1_100(b *testing.B)  { benchmarkQuicksort(100, b) }
 func BenchmarkQuicksort1_1500(b *testing.B) { benchmarkQuicksort(1500, b) }
 
-func BenchmarkQuicksort2_10(b *testing.B)   { benchmarkQuicksort(10, b) }
-func BenchmarkQuicksort2_20(b *testing.B)   { benchmarkQuicksort(20, b) }
-func BenchmarkQuicksort2_100(b *testing.B)  { benchmarkQuicksort(100, b) }
-func BenchmarkQuicksort2_1500(b *testing.B) { benchmarkQuicksort(1500, b) }
+func BenchmarkQuicksort2_10(b *testing.B)   { benchmarkQuicksort2(10, b) }
+func BenchmarkQuicksort2_20(b *testing.B)   { benchmarkQuicksort2(20, b) }
+func BenchmarkQuicksort2_100(b *testing.B)  { benchmarkQuicksort2(100, b) }
+func BenchmarkQuicksort2_1500(b *testing.B) { benchmarkQuicksort2(1500, b) }
 
 func BenchmarkMergeSort1_10(b *testing.B)   { benchmarkMergeSort(10, b) }
 func BenchmarkMergeSort1_20(b *testing.B)   { benchmarkMergeSort(20, b) }
