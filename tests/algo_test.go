@@ -405,6 +405,50 @@ func TestGcd(t *testing.T) {
 	}
 }
 
+func TestRecursionGcd(t *testing.T) {
+	type args struct {
+		num1 int
+		num2 int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "GCD equal 6",
+			args: args{
+				num1: 54,
+				num2: 24,
+			},
+			want: 6,
+		},
+		{
+			name: "GCD equal 90",
+			args: args{
+				num1: 630,
+				num2: 2700,
+			},
+			want: 90,
+		},
+		{
+			name: "GCD equal 24",
+			args: args{
+				num1: 96,
+				num2: 72,
+			},
+			want: 24,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.GCDRecur(tt.args.num1, tt.args.num2); got != tt.want {
+				t.Errorf("Gcd() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func benchmarkSumList(l int, b *testing.B) {
 	f := fuzz.New()
 	var myInt []int
