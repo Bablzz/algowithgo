@@ -1,10 +1,12 @@
 package algo_test
 
 import (
-	"github.com/bablzz/algowithgo/pkg/algo"
-	fuzz "github.com/google/gofuzz"
 	"reflect"
 	"testing"
+
+	fuzz "github.com/google/gofuzz"
+
+	"github.com/bablzz/algowithgo/pkg/algo"
 )
 
 func Test_NumInList(t *testing.T) {

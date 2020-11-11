@@ -33,4 +33,16 @@ func main() {
 	for res := range out {
 		fmt.Println(res)
 	}
+
+	var num int
+	var l algo.Fraction
+	var r algo.Fraction
+
+	for num = 1; num <= 10; num++ {
+		l = algo.Fraction{0, 1}
+		r = algo.Fraction{1, 1}
+		fmt.Printf("F(%d): %s ", num, l)
+		algo.Gen(l, r, num)
+		fmt.Println(r)
+	}
 }
