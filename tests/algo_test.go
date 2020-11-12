@@ -451,6 +451,39 @@ func TestRecursionGcd(t *testing.T) {
 	}
 }
 
+func TestLookAndSay(t *testing.T) {
+	type args struct {
+		str string
+		inc int
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "Look and say from 4",
+			args: args{
+				str: "1",
+				inc: 4,
+			},
+			want: "111221",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.args.str
+			for i := 0; i < tt.args.inc; i++ {
+				got = algo.Looksay(got)
+			}
+			if got != tt.want {
+				t.Errorf("LookAndSay(%d) = %v, want %v", tt.args.inc, got, tt.want)
+			}
+		})
+	}
+}
+
 func benchmarkSumList(l int, b *testing.B) {
 	f := fuzz.New()
 	var myInt []int
