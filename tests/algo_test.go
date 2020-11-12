@@ -282,11 +282,79 @@ func TestBinarySearch(t *testing.T) {
 			},
 			want: -1,
 		},
+		{
+			name: "Find element 10 digit",
+			args: args{
+				arr:  []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+				elem: 3,
+			},
+			want: 2,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := algo.Bs(tt.args.arr, tt.args.elem); got != tt.want {
 				t.Errorf("Bs() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestInterpolationSearch(t *testing.T) {
+	type args struct {
+		arr  []int
+		elem int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "Find element in left",
+			args: args{
+				arr:  []int{1, 2, 3, 4, 5},
+				elem: 4,
+			},
+			want: 3,
+		},
+		{
+			name: "Find element in right",
+			args: args{
+				arr:  []int{1, 2, 3, 4, 5},
+				elem: 2,
+			},
+			want: 1,
+		},
+		{
+			name: "Right boundary",
+			args: args{
+				arr:  []int{1, 2, 3, 4, 5},
+				elem: 1,
+			},
+			want: 0,
+		},
+		{
+			name: "Left boundary",
+			args: args{
+				arr:  []int{1, 2, 3, 4, 5},
+				elem: 5,
+			},
+			want: 4,
+		},
+		{
+			name: "Not found",
+			args: args{
+				arr:  []int{1, 2, 3, 4, 5},
+				elem: 8,
+			},
+			want: -1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if _, got := algo.InterpolationSearch(tt.args.arr, tt.args.elem); got != tt.want {
+				t.Errorf("InterpolationSearch() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -401,6 +469,100 @@ func TestGcd(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := algo.Gcd(tt.args.num1, tt.args.num2); got != tt.want {
+				t.Errorf("Gcd() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestFibRec(t *testing.T) {
+	type args struct {
+		num1 int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "Fib 1",
+			args: args{
+				num1: 1,
+			},
+			want: 1,
+		},
+		{
+			name: "Fib 0",
+			args: args{
+				num1: 0,
+			},
+			want: 0,
+		},
+		{
+			name: "Fib 4",
+			args: args{
+				num1: 4,
+			},
+			want: 3,
+		},
+		{
+			name: "Fib 10",
+			args: args{
+				num1: 10,
+			},
+			want: 55,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.FibRecursive(tt.args.num1); got != tt.want {
+				t.Errorf("Gcd() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestFibNonRec(t *testing.T) {
+	type args struct {
+		num1 int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "Fib 1",
+			args: args{
+				num1: 1,
+			},
+			want: 1,
+		},
+		{
+			name: "Fib 0",
+			args: args{
+				num1: 0,
+			},
+			want: 0,
+		},
+		{
+			name: "Fib 4",
+			args: args{
+				num1: 4,
+			},
+			want: 3,
+		},
+		{
+			name: "Fib 10",
+			args: args{
+				num1: 10,
+			},
+			want: 55,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.FibNonRecursive(tt.args.num1); got != tt.want {
 				t.Errorf("Gcd() = %v, want %v", got, tt.want)
 			}
 		})
@@ -548,6 +710,42 @@ func benchmarkMergeSort(l int, b *testing.B) {
 		algo.MergeSort(myInt)
 	}
 }
+
+func benchmarkBinarySearch(l int, num int, b *testing.B) {
+	var arrSearch []int
+
+	for i := 0; i < l; i++ {
+		arrSearch = append(arrSearch, i)
+	}
+	b.ResetTimer()
+	b.ReportAllocs()
+	for n := 0; n < b.N; n++ {
+		algo.Bs(arrSearch, num)
+	}
+}
+
+func benchmarkInterpolationSearch(l int, num int, b *testing.B) {
+	var arrSearch []int
+
+	for i := 0; i < l; i++ {
+		arrSearch = append(arrSearch, i)
+	}
+	b.ResetTimer()
+	b.ReportAllocs()
+	for n := 0; n < b.N; n++ {
+		algo.InterpolationSearch(arrSearch, num)
+	}
+}
+
+func BenchmarkBinarySearch1_10(b *testing.B)   { benchmarkBinarySearch(10, 3, b) }
+func BenchmarkBinarySearch1_20(b *testing.B)   { benchmarkBinarySearch(20, 13, b) }
+func BenchmarkBinarySearch1_100(b *testing.B)  { benchmarkBinarySearch(100, 54, b) }
+func BenchmarkBinarySearch1_1500(b *testing.B) { benchmarkBinarySearch(1500, 643, b) }
+
+func BenchmarkInterpolationSearch1_10(b *testing.B)  { benchmarkInterpolationSearch(10, 3, b) }
+func BenchmarkInterpolationSearch_20(b *testing.B)   { benchmarkInterpolationSearch(20, 13, b) }
+func BenchmarkInterpolationSearch_100(b *testing.B)  { benchmarkInterpolationSearch(100, 54, b) }
+func BenchmarkInterpolationSearch_1500(b *testing.B) { benchmarkInterpolationSearch(1500, 643, b) }
 
 func BenchmarkSumList1_10(b *testing.B)   { benchmarkSumList(10, b) }
 func BenchmarkSumList2_20(b *testing.B)   { benchmarkSumList(20, b) }
