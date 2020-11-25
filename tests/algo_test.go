@@ -680,6 +680,8 @@ func benchmarkQuicksort(l int, b *testing.B) {
 		f.Fuzz(&j)
 		myInt = append(myInt, j)
 	}
+	b.ResetTimer()
+	b.ReportAllocs()
 	for n := 0; n < b.N; n++ {
 		algo.Quicksort(myInt)
 	}
@@ -693,6 +695,8 @@ func benchmarkQuicksort2(l int, b *testing.B) {
 		f.Fuzz(&j)
 		myInt = append(myInt, j)
 	}
+	b.ResetTimer()
+	b.ReportAllocs()
 	for n := 0; n < b.N; n++ {
 		algo.Quicksort2(myInt, 0, len(myInt)-1)
 	}
@@ -706,6 +710,8 @@ func benchmarkMergeSort(l int, b *testing.B) {
 		f.Fuzz(&j)
 		myInt = append(myInt, j)
 	}
+	b.ResetTimer()
+	b.ReportAllocs()
 	for n := 0; n < b.N; n++ {
 		algo.MergeSort(myInt)
 	}
