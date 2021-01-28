@@ -661,9 +661,8 @@ func TestMaxSum(t *testing.T) {
 		{
 			name: "Negative",
 			args: args{
-				arr: []int{1, 4, 2, -8, 2, 3, 1, 0, 20},
-				n:   0,
-				k:   1,
+				arr: []int{0},
+				k:   2,
 			},
 			want:    -1,
 			wantErr: true,
@@ -672,7 +671,6 @@ func TestMaxSum(t *testing.T) {
 			name: "Sum 24",
 			args: args{
 				arr: []int{1, 4, 2, -8, 2, 3, 1, 0, 20},
-				n:   len([]int{1, 4, 2, -8, 2, 3, 1, 0, 20}),
 				k:   4,
 			},
 			want:    24,
@@ -682,7 +680,6 @@ func TestMaxSum(t *testing.T) {
 			name: "Sum 24",
 			args: args{
 				arr: []int{1, 4, 2, -8, 0, 0, 0, 0, 1},
-				n:   len([]int{1, 4, 2, -8, 0, 0, 0, 0, 0}),
 				k:   4,
 			},
 			want:    1,
@@ -692,7 +689,6 @@ func TestMaxSum(t *testing.T) {
 			name: "Sum 24",
 			args: args{
 				arr: []int{1, 4, 2, -8},
-				n:   len([]int{1, 4, 2, -8}),
 				k:   4,
 			},
 			want:    -1,
@@ -702,7 +698,6 @@ func TestMaxSum(t *testing.T) {
 			name: "Sum 24",
 			args: args{
 				arr: []int{1, 4, 2, -8},
-				n:   len([]int{1, 4, 2, -8}),
 				k:   2,
 			},
 			want:    6,
@@ -711,7 +706,7 @@ func TestMaxSum(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := algo.MaxSum(tt.args.arr, tt.args.n, tt.args.k)
+			got, err := algo.MaxSum(tt.args.arr, tt.args.k)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("MaxSum() error = %v, wantErr %v", err, tt.wantErr)
 				return

@@ -4,12 +4,13 @@ import "fmt"
 
 // arr - our arrays, n = len(array), k = len of subsequence
 // Complexity O(n)
-func MaxSum(arr []int, n, k int) (int, error) {
-	if n < k {
+func MaxSum(arr []int, k int) (int, error) {
+	if len(arr) < k {
 		return -1, fmt.Errorf("subsequence must be less thna array")
 	}
 
 	var (
+		n         = len(arr)
 		maxSum    = 0
 		windowSum = 0
 	)
