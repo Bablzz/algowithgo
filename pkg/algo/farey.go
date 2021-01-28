@@ -7,8 +7,6 @@ type Fraction struct {
 	Denumerator int
 }
 
-var result string
-
 func (f Fraction) String() string {
 	return fmt.Sprintf("%d/%d", f.Numerator, f.Denumerator)
 }

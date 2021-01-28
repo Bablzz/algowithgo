@@ -646,6 +646,83 @@ func TestLookAndSay(t *testing.T) {
 	}
 }
 
+func TestMaxSum(t *testing.T) {
+	type args struct {
+		arr []int
+		n   int
+		k   int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    int
+		wantErr bool
+	}{
+		{
+			name: "Negative",
+			args: args{
+				arr: []int{1, 4, 2, -8, 2, 3, 1, 0, 20},
+				n:   0,
+				k:   1,
+			},
+			want:    -1,
+			wantErr: true,
+		},
+		{
+			name: "Sum 24",
+			args: args{
+				arr: []int{1, 4, 2, -8, 2, 3, 1, 0, 20},
+				n:   len([]int{1, 4, 2, -8, 2, 3, 1, 0, 20}),
+				k:   4,
+			},
+			want:    24,
+			wantErr: false,
+		},
+		{
+			name: "Sum 24",
+			args: args{
+				arr: []int{1, 4, 2, -8, 0, 0, 0, 0, 1},
+				n:   len([]int{1, 4, 2, -8, 0, 0, 0, 0, 0}),
+				k:   4,
+			},
+			want:    1,
+			wantErr: false,
+		},
+		{
+			name: "Sum 24",
+			args: args{
+				arr: []int{1, 4, 2, -8},
+				n:   len([]int{1, 4, 2, -8}),
+				k:   4,
+			},
+			want:    -1,
+			wantErr: false,
+		},
+		{
+			name: "Sum 24",
+			args: args{
+				arr: []int{1, 4, 2, -8},
+				n:   len([]int{1, 4, 2, -8}),
+				k:   2,
+			},
+			want:    6,
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := algo.MaxSum(tt.args.arr, tt.args.n, tt.args.k)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("MaxSum() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("MaxSum() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func benchmarkSumList(l int, b *testing.B) {
 	f := fuzz.New()
 	var myInt []int
