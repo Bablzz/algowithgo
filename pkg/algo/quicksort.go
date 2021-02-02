@@ -2,6 +2,9 @@ package algo
 
 import "math/rand"
 
+// Quicksort sort. Sorting Algorithm.
+// Best case O(n log n).
+// Worst case O(n^2)
 func Quicksort(arr []int) []int {
 	if len(arr) < 2 {
 		return arr

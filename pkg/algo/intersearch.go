@@ -1,5 +1,8 @@
 package algo
 
+// Interpolation search. Search Algorithm.
+// Best case O(log(log n)).
+// Worst case O(n)
 func InterpolationSearch(elements []int, element int) (bool, int) {
 	var (
 		mid  int

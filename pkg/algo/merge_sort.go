@@ -1,5 +1,8 @@
 package algo
 
+// Merge sort. Sorting Algorithm.
+// Best case O(log n).
+// Worst case O(log n)
 func sort(leftArr, rightArr, resultArr []int) []int {
 	for len(leftArr) > 0 || len(rightArr) > 0 {
 		if len(leftArr) == 0 {

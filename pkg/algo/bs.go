@@ -1,5 +1,8 @@
 package algo
 
+// Binary search. Search Algorithm.
+// Best case O(1).
+// Worst case O(log n)
 func Bs(arr []int, elem int) int {
 	low := 0
 	high := len(arr)
