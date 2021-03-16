@@ -677,7 +677,7 @@ func TestMaxSum(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "Sum 24",
+			name: "Sum 1",
 			args: args{
 				arr: []int{1, 4, 2, -8, 0, 0, 0, 0, 1},
 				k:   4,
@@ -686,7 +686,7 @@ func TestMaxSum(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "Sum 24",
+			name: "Sum -1",
 			args: args{
 				arr: []int{1, 4, 2, -8},
 				k:   4,
@@ -695,7 +695,7 @@ func TestMaxSum(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "Sum 24",
+			name: "Sum 6",
 			args: args{
 				arr: []int{1, 4, 2, -8},
 				k:   2,

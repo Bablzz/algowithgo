@@ -6,7 +6,7 @@ import "fmt"
 // Complexity O(n)
 func MaxSum(arr []int, k int) (int, error) {
 	if len(arr) < k {
-		return -1, fmt.Errorf("subsequence must be less thna array")
+		return -1, fmt.Errorf("subsequence must be less than an array")
 	}
 
 	var (
