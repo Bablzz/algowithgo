@@ -232,6 +232,40 @@ func TestMergeSort(t *testing.T) {
 	}
 }
 
+func TestSleepSort(t *testing.T) {
+	type args struct {
+		arr []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "Positive",
+			args: args{arr: []int{5, 4, 3, 2, 1}},
+			want: []int{1, 2, 3, 4, 5},
+		},
+		{
+			name: "Two elements",
+			args: args{arr: []int{5, 4}},
+			want: []int{4, 5},
+		},
+		{
+			name: "One elements",
+			args: args{arr: []int{-10}},
+			want: []int{-10},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.SleepSort(tt.args.arr); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Sleep sort() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestBinarySearch(t *testing.T) {
 	type args struct {
 		arr  []int
