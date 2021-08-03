@@ -431,6 +431,39 @@ func TestSets(t *testing.T) {
 	}
 }
 
+func TestIsPalindrome(t *testing.T) {
+	type args struct {
+		in string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "Palindrome",
+			args: args{
+				in: "Madam",
+			},
+			want: true,
+		},
+		{
+			name: "Not a palindrome",
+			args: args{
+				in: "boys",
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.IsPalindrome(tt.args.in); got != tt.want {
+				t.Errorf("IsPalindrome() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestGcd(t *testing.T) {
 	type args struct {
 		num1 int
