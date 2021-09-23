@@ -636,6 +636,53 @@ func TestFibNonRec(t *testing.T) {
 	}
 }
 
+func TestFibByBinet(t *testing.T) {
+	type args struct {
+		num1 int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int64
+	}{
+		{
+			name: "Fib 1",
+			args: args{
+				num1: 1,
+			},
+			want: 1,
+		},
+		{
+			name: "Fib 0",
+			args: args{
+				num1: 0,
+			},
+			want: 0,
+		},
+		{
+			name: "Fib 4",
+			args: args{
+				num1: 4,
+			},
+			want: 3,
+		},
+		{
+			name: "Fib 10",
+			args: args{
+				num1: 10,
+			},
+			want: 55,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.FibByBinet(tt.args.num1); got != tt.want {
+				t.Errorf("FibByBinet() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestRecursionGcd(t *testing.T) {
 	type args struct {
 		num1 int
@@ -780,6 +827,39 @@ func TestMaxSum(t *testing.T) {
 			}
 			if got != tt.want {
 				t.Errorf("MaxSum() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestTaxicab(t *testing.T) {
+	type args struct {
+		p1, p2 algo.Point
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "Taxicab 1",
+			args: args{
+				p1: algo.Point{
+					X: 3,
+					Y: 4,
+				},
+				p2: algo.Point{
+					X: 0,
+					Y: 0,
+				},
+			},
+			want: 7,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.Distance(tt.args.p1, tt.args.p2); got != tt.want {
+				t.Errorf("Distance() = %v, want %v", got, tt.want)
 			}
 		})
 	}
