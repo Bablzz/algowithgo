@@ -832,6 +832,62 @@ func TestMaxSum(t *testing.T) {
 	}
 }
 
+func TestHighAndLow(t *testing.T) {
+	type args struct {
+		str string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "Positive",
+			args: args{
+				str: "1 9 3 4 -5",
+			},
+			want: "9 -5",
+		},
+		{
+			name: "Kata test",
+			args: args{
+				str: "8 3 -5 42 -1 0 0 -9 4 7 4 -4",
+			},
+			want: "42 -9",
+		},
+		{
+			name: "Kata test one positive element",
+			args: args{
+				str: "8",
+			},
+			want: "8 8",
+		},
+		{
+			name: "Kata test one negative element",
+			args: args{
+				str: "-8",
+			},
+			want: "-8 -8",
+		},
+		{
+			name: "Kata test negative elements",
+			args: args{
+				str: "-8 -8",
+			},
+			want: "-8 -8",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotExpectedStr := algo.HighLow(tt.args.str)
+			if gotExpectedStr != tt.want {
+				t.Errorf("HighAndLow() got = %v, want %v", gotExpectedStr, tt.want)
+			}
+
+		})
+	}
+}
+
 func TestTaxicab(t *testing.T) {
 	type args struct {
 		p1, p2 algo.Point

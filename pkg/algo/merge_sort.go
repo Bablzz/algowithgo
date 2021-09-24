@@ -3,7 +3,7 @@ package algo
 // Merge sort. Sorting Algorithm.
 // Best case O(log n).
 // Worst case O(log n)
-func sort(leftArr, rightArr, resultArr []int) []int {
+func mergesort(leftArr, rightArr, resultArr []int) []int {
 	for len(leftArr) > 0 || len(rightArr) > 0 {
 		if len(leftArr) == 0 {
 			return append(resultArr, rightArr...)
@@ -30,5 +30,5 @@ func MergeSort(a []int) []int {
 	left := MergeSort(a[:mid])
 	right := MergeSort(a[mid:])
 	resultArr := make([]int, 0, len(a))
-	return sort(left, right, resultArr)
+	return mergesort(left, right, resultArr)
 }
