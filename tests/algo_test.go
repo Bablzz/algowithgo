@@ -921,6 +921,60 @@ func TestTaxicab(t *testing.T) {
 	}
 }
 
+func TestEncryptThis(t *testing.T) {
+	type args struct {
+		text string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "Empty string",
+			args: args{
+				text: "",
+			},
+			want: "",
+		},
+		{
+			name: "Alone letter",
+			args: args{
+				text: "A",
+			},
+			want: "65",
+		},
+		{
+			name: "First sentence to encrypt",
+			args: args{
+				text: "Thank you Piotr for all your help",
+			},
+			want: "84kanh 121uo 80roti 102ro 97ll 121ruo 104ple",
+		},
+		{
+			name: "Second string with only letters",
+			args: args{
+				text: "A B C",
+			},
+			want: "65 66 67",
+		},
+		{
+			name: "Third string with one word",
+			args: args{
+				text: "The",
+			},
+			want: "84eh",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.EncryptThis(tt.args.text); got != tt.want {
+				t.Errorf("EncryptThis() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func benchmarkSumList(l int, b *testing.B) {
 	f := fuzz.New()
 	var myInt []int
