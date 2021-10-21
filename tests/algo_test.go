@@ -542,6 +542,34 @@ func TestGcd(t *testing.T) {
 	}
 }
 
+func TestLCM(t *testing.T) {
+	type args struct {
+		num1 int
+		num2 int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "LCM equal 48",
+			args: args{
+				num1: 12,
+				num2: 16,
+			},
+			want: 48,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.LCM(tt.args.num1, tt.args.num2); got != tt.want {
+				t.Errorf("LCM() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestFibRec(t *testing.T) {
 	type args struct {
 		num1 int
