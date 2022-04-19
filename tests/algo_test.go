@@ -711,6 +711,54 @@ func TestFibByBinet(t *testing.T) {
 	}
 }
 
+func TestFibMemo(t *testing.T) {
+	type args struct {
+		num1 int
+		mem  []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "Fib 1",
+			args: args{
+				num1: 1,
+			},
+			want: 1,
+		},
+		{
+			name: "Fib 0",
+			args: args{
+				num1: 0,
+			},
+			want: 0,
+		},
+		{
+			name: "Fib 4",
+			args: args{
+				num1: 4,
+			},
+			want: 3,
+		},
+		{
+			name: "Fib 10",
+			args: args{
+				num1: 10,
+			},
+			want: 55,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := algo.FibMemo(tt.args.num1); got != tt.want {
+				t.Errorf("FibMemo() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestRecursionGcd(t *testing.T) {
 	type args struct {
 		num1 int
@@ -1099,6 +1147,49 @@ func benchmarkInterpolationSearch(l int, num int, b *testing.B) {
 		algo.InterpolationSearch(arrSearch, num)
 	}
 }
+
+func benchmarkFibMemo(l int, b *testing.B) {
+	b.ResetTimer()
+	b.ReportAllocs()
+	for n := 0; n < b.N; n++ {
+		algo.FibMemo(l)
+	}
+}
+
+func benchmarkFibRecursive(l int, b *testing.B) {
+	b.ResetTimer()
+	b.ReportAllocs()
+	for n := 0; n < b.N; n++ {
+		algo.FibRecursive(l)
+	}
+}
+
+func benchmarkFibNonRecursive(l int, b *testing.B) {
+	b.ResetTimer()
+	b.ReportAllocs()
+	for n := 0; n < b.N; n++ {
+		algo.FibNonRecursive(l)
+	}
+}
+func benchmarkFibBine(l int, b *testing.B) {
+	b.ResetTimer()
+	b.ReportAllocs()
+	for n := 0; n < b.N; n++ {
+		algo.FibByBinet(l)
+	}
+}
+
+func BenchmarkFibBine_10(b *testing.B) { benchmarkFibBine(10, b) } // 31767546	        38.22 ns/op
+func BenchmarkFibBine_20(b *testing.B) { benchmarkFibBine(20, b) } // 30156728	        39.19 ns/op
+
+func BenchmarkFibNonRec_10(b *testing.B) { benchmarkFibNonRecursive(10, b) } // 234174198	         5.119 ns/op
+func BenchmarkFibNonRec_20(b *testing.B) { benchmarkFibNonRecursive(20, b) } // 133925815	         8.946 ns/op
+
+func BenchmarkFibRec_10(b *testing.B) { benchmarkFibRecursive(10, b) } // 4043698	       295.8 ns/op
+func BenchmarkFibRec_20(b *testing.B) { benchmarkFibRecursive(20, b) } // 30861	     38889 ns/op
+
+func BenchmarkFibMemo_10(b *testing.B) { benchmarkFibMemo(10, b) } // 10999206	       118.1 ns/op
+func BenchmarkFibMemo_20(b *testing.B) { benchmarkFibMemo(20, b) } // 5709230	       242.1 ns/op
 
 func BenchmarkBinarySearch1_10(b *testing.B)   { benchmarkBinarySearch(10, 3, b) }
 func BenchmarkBinarySearch1_20(b *testing.B)   { benchmarkBinarySearch(20, 13, b) }

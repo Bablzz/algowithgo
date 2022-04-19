@@ -36,3 +36,24 @@ func FibByBinet(max int) int64 {
 	divider := math.Sqrt(5)
 	return int64(divide / divider)
 }
+
+func FibMemo(n int) int {
+	mem := make([]int, n+1)
+	return fibMemo(n, mem)
+}
+
+func fibMemo(num int, mem []int) int {
+	if num == 0 {
+		return 0
+	}
+	if num == 1 || num == 2 {
+		return 1
+	}
+
+	if mem[num] != 0 {
+		return mem[num]
+	}
+
+	mem[num] = fibMemo(num-1, mem) + fibMemo(num-2, mem)
+	return mem[num]
+}
