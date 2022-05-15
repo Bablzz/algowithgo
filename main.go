@@ -1,57 +1,61 @@
 package main
 
 import (
-	"fmt"
+	"net/http"
+	"net/url"
 
 	"github.com/bablzz/algowithgo/pkg/algo"
 )
 
+type Opts struct {
+	URL         string
+	RawResponse string
+	Method      string
+	Status      int
+	Mux         *http.ServeMux
+	QueryParams url.Values
+}
+
+type Foo struct {
+	aa  bool
+	ccc bool
+	bb  int32
+}
+
 func main() {
-	var linkedList algo.LinkedList
-	linkedList = algo.LinkedList{}
-	linkedList.AddToHead(1)
-	linkedList.AddToHead(3)
-	linkedList.AddToEnd(5)
-	linkedList.AddAfter(1, 7)
-	fmt.Println(linkedList.NodeWithValue(5).Proprety)
-	linkedList.IterateList()
+	// var linkedList algo.LinkedList
+	// linkedList = algo.LinkedList{}
+	// linkedList.AddToHead(5)
+	// linkedList.AddToEnd(1)
+	// linkedList.AddToEnd(3)
+	// linkedList.AddToEnd(7)
+	// linkedList.AddToEnd(3)
+	// linkedList.IterateList()
+	// exercise.EvenOdd(&linkedList)
+	// fmt.Print("\n")
+	// linkedList.IterateList()
 
-	fmt.Println("\nCheck tuples")
-	fmt.Println(algo.A(algo.B(12, 5)))
+	// type Key string
+	//
+	// key := "Bond"
+	// ctx := context.WithValue(context.Background(), key, "James")
+	// ctx = context.WithValue(ctx, key, "007")
+	// fmt.Println(ctx.Value(key))
+	// nums := []int{2,3,4,-3,-4,5,8,15,10,6,7}
+	// target := 10
+	// fmt.Print(algo.SumOfThree(nums, target))
+	// fmt.Print(algo.MissNumber([]int{1, 2, 4, 5, 6}))
 
-	in := make(chan int)
-	out := make(chan int, 6)
+	// s := algo.NewStack()
+	// s.Staked(5)
+	// s.Staked(7)
+	// s.UnStaked()
+	// s.Staked(8)
+	// s.Display()
 
-	rb := algo.NewRingBuffer(in, out)
-	go rb.Run()
-
-	for i := 0; i < 10; i++ {
-		in <- i
-	}
-	close(in)
-
-	for res := range out {
-		fmt.Println(res)
-	}
-
-	var num int
-	var l algo.Fraction
-	var r algo.Fraction
-
-	for num = 1; num <= 3; num++ {
-		l = algo.Fraction{0, 1}
-		r = algo.Fraction{1, 1}
-		fmt.Printf("F(%d): %s ", num, l)
-		algo.Gen(l, r, num)
-		fmt.Println(r)
-	}
-
-	str := "1"
-	fmt.Println(str)
-	for i := 0; i < 4; i++ {
-		str = algo.Looksay(str)
-
-	}
-	fmt.Println(str)
-
+	q := algo.NewQueue()
+	q.Queued(5)
+	q.Queued(7)
+	q.DeQueued()
+	q.Display()
 }
